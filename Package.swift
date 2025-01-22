@@ -16,13 +16,16 @@ let package = Package(
     .library(name: "PovioKitAuthLinkedIn", targets: ["PovioKitAuthLinkedIn"])
   ],
   dependencies: [
+    .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", .upToNextMajor(from: "4.0.0")),
     .package(url: "https://github.com/google/GoogleSignIn-iOS", .upToNextMajor(from: "9.0.0")),
     .package(url: "https://github.com/facebook/facebook-ios-sdk", .upToNextMajor(from: "18.0.0")),
   ],
   targets: [
     .target(
       name: "PovioKitAuthCore",
-      dependencies: [],
+      dependencies: [
+        .product(name: "KeychainAccess", package: "KeychainAccess"),
+      ],
       path: "Sources/Core",
       resources: [.copy("../../Resources/PrivacyInfo.xcprivacy")]
     ),
