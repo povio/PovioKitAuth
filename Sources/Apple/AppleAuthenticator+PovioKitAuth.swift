@@ -10,7 +10,7 @@ import AuthenticationServices
 import CryptoKit
 import UIKit
 
-extension UIViewController: ASAuthorizationControllerPresentationContextProviding {
+extension UIViewController: @retroactive ASAuthorizationControllerPresentationContextProviding {
   public func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
     view.window ?? UIWindow()
   }
