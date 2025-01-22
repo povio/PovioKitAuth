@@ -29,6 +29,12 @@ public extension AppleAuthenticator {
     }
   }
   
+  struct Email: Codable {
+    public let address: String
+    public let isPrivate: Bool
+    public let isVerified: Bool
+  }
+  
   enum Error: Swift.Error {
     case system(_ error: Swift.Error)
     case cancelled
@@ -39,12 +45,9 @@ public extension AppleAuthenticator {
     case missingExpiration
     case missingEmail
   }
-}
-
-public extension AppleAuthenticator.Response {
-  struct Email {
-    public let address: String
-    public let isPrivate: Bool
-    public let isVerified: Bool
+  
+  struct UserData: Codable {
+    let name: PersonNameComponents?
+    let email: Email
   }
 }
