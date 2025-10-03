@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import WebKit
+@preconcurrency import WebKit
 
 @available(iOS 15.0, *)
 public struct LinkedInWebView: UIViewRepresentable {

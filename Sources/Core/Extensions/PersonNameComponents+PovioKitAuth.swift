@@ -1,5 +1,5 @@
 //
-//  PersonNameComponents+Extension.swift
+//  PersonNameComponents+PovioKitAuth.swift
 //  PovioKitAuth
 //
 //  Created by Egzon Arifi on 09/11/2024.

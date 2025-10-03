@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension URL: ExpressibleByStringLiteral {
+extension URL: @retroactive ExpressibleByStringLiteral {
   public init(stringLiteral value: String) {
     guard let url = URL(string: value) else {
       fatalError("Invalid URL string!")
