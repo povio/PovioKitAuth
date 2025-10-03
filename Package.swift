@@ -11,12 +11,10 @@ let package = Package(
   products: [
     .library(name: "PovioKitAuthCore", targets: ["PovioKitAuthCore"]),
     .library(name: "PovioKitAuthApple", targets: ["PovioKitAuthApple"]),
-    .library(name: "PovioKitAuthGoogle", targets: ["PovioKitAuthGoogle"]),
     .library(name: "PovioKitAuthLinkedIn", targets: ["PovioKitAuthLinkedIn"])
   ],
   dependencies: [
-    .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", .upToNextMajor(from: "4.0.0")),
-    .package(url: "https://github.com/google/GoogleSignIn-iOS", .upToNextMajor(from: "9.0.0"))
+    .package(url: "https://github.com/kishikawakatsumi/KeychainAccess", .upToNextMajor(from: "4.0.0"))
   ],
   targets: [
     .target(
@@ -33,15 +31,6 @@ let package = Package(
         "PovioKitAuthCore"
       ],
       path: "Sources/Apple",
-      resources: [.copy("../../Resources/PrivacyInfo.xcprivacy")]
-    ),
-    .target(
-      name: "PovioKitAuthGoogle",
-      dependencies: [
-        "PovioKitAuthCore",
-        .product(name: "GoogleSignInSwift", package: "GoogleSignIn-iOS")
-      ],
-      path: "Sources/Google",
       resources: [.copy("../../Resources/PrivacyInfo.xcprivacy")]
     ),
     .target(
