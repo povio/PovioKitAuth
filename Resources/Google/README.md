@@ -2,12 +2,15 @@
 
 Auth provider for social login with Google.
 
-## Setup
-Please read [official documentation](https://developers.google.com/identity/sign-in/ios/start-integrating) from Google for all the details around the setup and integration.
+## Installation
+
+Install it from a [separate repo](https://github.com/povio/PovioKitAuthGoogle).
 
 ## Usage
 
 ```swift
+import PovioKitAuthGoogle
+
 // initialization
 let authenticator = GoogleAuthenticator()
 
