@@ -19,7 +19,15 @@ public final class KeychainService {
   /// - Parameters:
   ///   - name: The service name used for identifying stored keychain items. Defaults to "KeychainService.main".
   ///   - accessGroup: An optional access group identifier for shared keychain access.
-  public init(name: String = "KeychainService.main", accessGroup: String? = nil) {
+  ///
+  /// Example:
+  /// ```swift
+  /// extension KeychainService {
+  ///     static let main: KeychainService = .init(name: "my.app.main")
+  ///     static let shared: KeychainService = .init(name: "my.app.shared", accessGroup: "my.app.group")
+  /// }
+  /// ```
+  public init(name: String, accessGroup: String? = nil) {
     if let accessGroup {
       keychain = .init(service: name, accessGroup: accessGroup)
     } else {
