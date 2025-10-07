@@ -15,8 +15,10 @@ public final class AppleAuthenticator: NSObject {
   private let storageUserIdKey = "signIn.userId"
   private let storageAuthenticatedKey = "authenticated"
   private let provider: ASAuthorizationAppleIDProvider
+  private let keychainService: KeychainService = .init(name: "povioKit.auth")
+  private let keychainServiceDataKey: String = "user.data"
   private var continuation: CheckedContinuation<Response, Swift.Error>?
-
+  
   public init(storage: UserDefaults? = nil) {
     self.provider = .init()
     self.storage = storage ?? .init(suiteName: "povioKit.auth.apple") ?? .standard
@@ -37,7 +39,7 @@ extension AppleAuthenticator: Authenticator {
   public func signIn(from presentingViewController: UIViewController) async throws -> Response {
     try await appleSignIn(on: presentingViewController, with: nil)
   }
-
+  
   /// SignIn user with `nonce` value
   ///
   /// Nonce is usually needed when doing auth with an external auth provider (e.g. firebase).
@@ -45,7 +47,7 @@ extension AppleAuthenticator: Authenticator {
   public func signIn(from presentingViewController: UIViewController, with nonce: Nonce) async throws -> Response {
     try await appleSignIn(on: presentingViewController, with: nonce)
   }
-
+  
   /// Clears the signIn footprint and logs out the user immediatelly.
   public func signOut() {
     storage.removeObject(forKey: storageUserIdKey)
@@ -57,11 +59,15 @@ extension AppleAuthenticator: Authenticator {
   public var isAuthenticated: Authenticated {
     storage.string(forKey: storageUserIdKey) != nil && storage.bool(forKey: storageAuthenticatedKey)
   }
-
+  
   /// Boolean if given `url` should be handled.
   ///
   /// Call this from UIApplicationDelegate’s `application:openURL:options:` method.
-  public func canOpenUrl(_ url: URL, application: UIApplication, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+  public func canOpenUrl(
+    _ url: URL,
+    application: UIApplication,
+    options: [UIApplication.OpenURLOptionsKey : Any]
+  ) -> Bool {
     false
   }
   
@@ -76,7 +82,10 @@ extension AppleAuthenticator: Authenticator {
 
 // MARK: - ASAuthorizationControllerDelegate
 extension AppleAuthenticator: ASAuthorizationControllerDelegate {
-  public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+  public func authorizationController(
+    controller: ASAuthorizationController,
+    didCompleteWithAuthorization authorization: ASAuthorization
+  ) {
     switch authorization.credential {
     case let credential as ASAuthorizationAppleIDCredential:
       guard let authCodeData = credential.authorizationCode,
@@ -93,17 +102,27 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
       
       // parse email and related metadata
       let jwt = try? JWTDecoder(token: identityTokenString)
-      let email: Response.Email? = (credential.email ?? jwt?.string(for: "email")).map {
+      var email: Email? = (credential.email ?? jwt?.string(for: "email")).map {
         let isEmailPrivate = jwt?.bool(for: "is_private_email") ?? false
         let isEmailVerified = jwt?.bool(for: "email_verified") ?? false
         return .init(address: $0, isPrivate: isEmailPrivate, isVerified: isEmailVerified)
       }
       
+      // load email from keychain on subsequent logins
+      let existingUserData: UserData? = keychainService.read(UserData.self, for: keychainServiceDataKey)
+      if email == nil, let existingUserData {
+        email = existingUserData.email
+      }
+      
       // do not continue if `email` is missing
-      guard let email else {
+      guard let email, !email.address.isEmpty else {
         rejectSignIn(with: .missingEmail)
         return
       }
+      
+      // save user data for the future logins
+      let updatedUserData: UserData = .init(name: credential.fullName, email: email)
+      try? keychainService.save(updatedUserData, for: keychainServiceDataKey)
       
       // do not continue if `expiresAt` is missing
       guard let expiresAt = jwt?.expiresAt else {
@@ -111,12 +130,14 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
         return
       }
       
-      let response = Response(userId: credential.user,
-                              token: identityTokenString,
-                              authCode: authCode,
-                              nameComponents: credential.fullName,
-                              email: email,
-                              expiresAt: expiresAt)
+      let response = Response(
+        userId: credential.user,
+        token: identityTokenString,
+        authCode: authCode,
+        nameComponents: updatedUserData.name,
+        email: updatedUserData.email,
+        expiresAt: expiresAt
+      )
       
       continuation?.resume(with: .success(response))
     case _:
@@ -124,7 +145,10 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
     }
   }
   
-  public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Swift.Error) {
+  public func authorizationController(
+    controller: ASAuthorizationController,
+    didCompleteWithError error: Swift.Error
+  ) {
     switch error {
     case let err as ASAuthorizationError where err.code == .canceled:
       rejectSignIn(with: .cancelled)
@@ -139,7 +163,7 @@ private extension AppleAuthenticator {
   func appleSignIn(on presentingViewController: UIViewController, with nonce: Nonce?) async throws -> Response {
     let request = provider.createRequest()
     request.requestedScopes = [.fullName, .email]
-
+    
     switch nonce {
     case .random(let length):
       guard length > 0 else {
@@ -151,7 +175,7 @@ private extension AppleAuthenticator {
     case .none:
       break
     }
-
+    
     return try await withCheckedThrowingContinuation { continuation in
       let controller = ASAuthorizationController(authorizationRequests: [request])
       controller.delegate = self
@@ -162,10 +186,12 @@ private extension AppleAuthenticator {
   }
   
   func setupCredentialsRevokeListener() {
-    NotificationCenter.default.addObserver(self,
-                                           selector: #selector(appleCredentialRevoked),
-                                           name: ASAuthorizationAppleIDProvider.credentialRevokedNotification,
-                                           object: nil)
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(appleCredentialRevoked),
+      name: ASAuthorizationAppleIDProvider.credentialRevokedNotification,
+      object: nil
+    )
   }
   
   func rejectSignIn(with error: Error) {

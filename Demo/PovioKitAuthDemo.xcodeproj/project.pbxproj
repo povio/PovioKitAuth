@@ -7,18 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		990EB5A12BEDF02B00EFA308 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990EB5A02BEDF02B00EFA308 /* DemoApp.swift */; };
-		990EB5A32BEDF02B00EFA308 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990EB5A22BEDF02B00EFA308 /* SignInView.swift */; };
-		990EB5A52BEDF02D00EFA308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 990EB5A42BEDF02D00EFA308 /* Assets.xcassets */; };
-		990EB5A92BEDF02D00EFA308 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 990EB5A82BEDF02D00EFA308 /* Preview Assets.xcassets */; };
-		9964BCFF2BEDF1180065CBC2 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9964BCFE2BEDF1180065CBC2 /* SignInViewModel.swift */; };
-		9964BD042BEDF2690065CBC2 /* PovioKitAuth in Resources */ = {isa = PBXBuildFile; fileRef = 9964BD032BEDF2690065CBC2 /* PovioKitAuth */; };
-		9964BD072BEDF2810065CBC2 /* PovioKitAuthApple in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD062BEDF2810065CBC2 /* PovioKitAuthApple */; };
-		9964BD092BEDF2810065CBC2 /* PovioKitAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD082BEDF2810065CBC2 /* PovioKitAuthCore */; };
-		9964BD0B2BEDF2810065CBC2 /* PovioKitAuthFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD0A2BEDF2810065CBC2 /* PovioKitAuthFacebook */; };
-		9964BD0D2BEDF2810065CBC2 /* PovioKitAuthGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD0C2BEDF2810065CBC2 /* PovioKitAuthGoogle */; };
-		9964BD0F2BEDF2810065CBC2 /* PovioKitAuthLinkedIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD0E2BEDF2810065CBC2 /* PovioKitAuthLinkedIn */; };
-		999C56EB2C046BF50093AD37 /* PovioKitCore in Frameworks */ = {isa = PBXBuildFile; productRef = 999C56EA2C046BF50093AD37 /* PovioKitCore */; };
+	990EB5A12BEDF02B00EFA308 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990EB5A02BEDF02B00EFA308 /* DemoApp.swift */; };
+	990EB5A32BEDF02B00EFA308 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990EB5A22BEDF02B00EFA308 /* SignInView.swift */; };
+	990EB5A52BEDF02D00EFA308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 990EB5A42BEDF02D00EFA308 /* Assets.xcassets */; };
+	990EB5A92BEDF02D00EFA308 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 990EB5A82BEDF02D00EFA308 /* Preview Assets.xcassets */; };
+	9964BCFF2BEDF1180065CBC2 /* SignInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9964BCFE2BEDF1180065CBC2 /* SignInViewModel.swift */; };
+	9964BD072BEDF2810065CBC2 /* PovioKitAuthApple in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD062BEDF2810065CBC2 /* PovioKitAuthApple */; };
+	9964BD092BEDF2810065CBC2 /* PovioKitAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD082BEDF2810065CBC2 /* PovioKitAuthCore */; };
+	9964BD0F2BEDF2810065CBC2 /* PovioKitAuthLinkedIn in Frameworks */ = {isa = PBXBuildFile; productRef = 9964BD0E2BEDF2810065CBC2 /* PovioKitAuthLinkedIn */; };
+	999C56EB2C046BF50093AD37 /* PovioKitCore in Frameworks */ = {isa = PBXBuildFile; productRef = 999C56EA2C046BF50093AD37 /* PovioKitCore */; };
+	99D522BD2E94EBA8003A94FA /* PovioKitAuthGoogle in Frameworks */ = {isa = PBXBuildFile; productRef = 99D522BC2E94EBA8003A94FA /* PovioKitAuthGoogle */; };
+	99D522C02E94EBB4003A94FA /* PovioKitAuthFacebook in Frameworks */ = {isa = PBXBuildFile; productRef = 99D522BF2E94EBB4003A94FA /* PovioKitAuthFacebook */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,9 +39,9 @@
 				9964BD092BEDF2810065CBC2 /* PovioKitAuthCore in Frameworks */,
 				9964BD072BEDF2810065CBC2 /* PovioKitAuthApple in Frameworks */,
 				9964BD0F2BEDF2810065CBC2 /* PovioKitAuthLinkedIn in Frameworks */,
-				9964BD0D2BEDF2810065CBC2 /* PovioKitAuthGoogle in Frameworks */,
 				999C56EB2C046BF50093AD37 /* PovioKitCore in Frameworks */,
-				9964BD0B2BEDF2810065CBC2 /* PovioKitAuthFacebook in Frameworks */,
+				99D522BD2E94EBA8003A94FA /* PovioKitAuthGoogle in Frameworks */,
+				99D522C02E94EBB4003A94FA /* PovioKitAuthFacebook in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,10 +121,10 @@
 			packageProductDependencies = (
 				9964BD062BEDF2810065CBC2 /* PovioKitAuthApple */,
 				9964BD082BEDF2810065CBC2 /* PovioKitAuthCore */,
-				9964BD0A2BEDF2810065CBC2 /* PovioKitAuthFacebook */,
-				9964BD0C2BEDF2810065CBC2 /* PovioKitAuthGoogle */,
 				9964BD0E2BEDF2810065CBC2 /* PovioKitAuthLinkedIn */,
 				999C56EA2C046BF50093AD37 /* PovioKitCore */,
+				99D522BC2E94EBA8003A94FA /* PovioKitAuthGoogle */,
+				99D522BF2E94EBB4003A94FA /* PovioKitAuthFacebook */,
 			);
 			productName = PovioKitAuthDemo;
 			productReference = 990EB59D2BEDF02B00EFA308 /* PovioKitAuthDemo.app */;
@@ -139,7 +138,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1540;
+				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = "Povio Inc.";
 				TargetAttributes = {
 					990EB59C2BEDF02B00EFA308 = {
@@ -158,6 +157,8 @@
 			mainGroup = 990EB5942BEDF02B00EFA308;
 			packageReferences = (
 				999C56E92C046BF50093AD37 /* XCRemoteSwiftPackageReference "PovioKit" */,
+				99D522BB2E94EBA8003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthGoogle" */,
+				99D522BE2E94EBB4003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthFacebook" */,
 			);
 			productRefGroup = 990EB59E2BEDF02B00EFA308 /* Products */;
 			projectDirPath = "";
@@ -169,16 +170,15 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		990EB59B2BEDF02B00EFA308 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				990EB5A92BEDF02D00EFA308 /* Preview Assets.xcassets in Resources */,
-				9964BD042BEDF2690065CBC2 /* PovioKitAuth in Resources */,
-				990EB5A52BEDF02D00EFA308 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+	990EB59B2BEDF02B00EFA308 /* Resources */ = {
+		isa = PBXResourcesBuildPhase;
+		buildActionMask = 2147483647;
+		files = (
+			990EB5A92BEDF02D00EFA308 /* Preview Assets.xcassets in Resources */,
+			990EB5A52BEDF02D00EFA308 /* Assets.xcassets in Resources */,
+		);
+		runOnlyForDeploymentPostprocessing = 0;
+	};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -231,6 +231,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 7G58AP3AJX;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -252,6 +253,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -293,6 +295,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 7G58AP3AJX;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -307,6 +310,7 @@
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 			};
 			name = Release;
@@ -321,9 +325,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PovioKitAuthDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = 7G58AP3AJX;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -361,9 +366,10 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"PovioKitAuthDemo/Preview Content\"";
-				DEVELOPMENT_TEAM = 7G58AP3AJX;
+				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
 				GENERATE_INFOPLIST_FILE = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
@@ -420,7 +426,23 @@
 			repositoryURL = "https://github.com/poviolabs/PovioKit";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 5.0.0;
+			};
+		};
+		99D522BB2E94EBA8003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthGoogle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/povio/PovioKitAuthGoogle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		99D522BE2E94EBB4003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthFacebook" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/povio/PovioKitAuthFacebook";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -434,14 +456,6 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = PovioKitAuthCore;
 		};
-		9964BD0A2BEDF2810065CBC2 /* PovioKitAuthFacebook */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PovioKitAuthFacebook;
-		};
-		9964BD0C2BEDF2810065CBC2 /* PovioKitAuthGoogle */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = PovioKitAuthGoogle;
-		};
 		9964BD0E2BEDF2810065CBC2 /* PovioKitAuthLinkedIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = PovioKitAuthLinkedIn;
@@ -450,6 +464,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 999C56E92C046BF50093AD37 /* XCRemoteSwiftPackageReference "PovioKit" */;
 			productName = PovioKitCore;
+		};
+		99D522BC2E94EBA8003A94FA /* PovioKitAuthGoogle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99D522BB2E94EBA8003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthGoogle" */;
+			productName = PovioKitAuthGoogle;
+		};
+		99D522BF2E94EBB4003A94FA /* PovioKitAuthFacebook */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 99D522BE2E94EBB4003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthFacebook" */;
+			productName = PovioKitAuthFacebook;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

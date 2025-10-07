@@ -10,12 +10,21 @@
       }
     },
     {
+      "identity" : "app-check",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/app-check.git",
+      "state" : {
+        "revision" : "61b85103a1aeed8218f17c794687781505fbbef5",
+        "version" : "11.2.0"
+      }
+    },
+    {
       "identity" : "appauth-ios",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openid/AppAuth-iOS.git",
       "state" : {
-        "revision" : "c89ed571ae140f8eb1142735e6e23d7bb8c34cb2",
-        "version" : "1.7.5"
+        "revision" : "145104f5ea9d58ae21b60add007c33c1cc0c948e",
+        "version" : "2.0.0"
       }
     },
     {
@@ -23,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/facebook/facebook-ios-sdk",
       "state" : {
-        "revision" : "9b89497b97ef043991862c9a8c5bb7fffaf31988",
-        "version" : "17.0.1"
+        "revision" : "a77ba210bf6534564ad4027fce2fef65babfadf8",
+        "version" : "18.0.1"
       }
     },
     {
@@ -32,8 +41,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleSignIn-iOS",
       "state" : {
-        "revision" : "a7965d134c5d3567026c523e0a8a583f73b62b0d",
-        "version" : "7.1.0"
+        "revision" : "3996d908c7b3ce8a87d39c808f9a6b2a08fbe043",
+        "version" : "9.0.0"
+      }
+    },
+    {
+      "identity" : "googleutilities",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/GoogleUtilities.git",
+      "state" : {
+        "revision" : "60da361632d0de02786f709bdc0c4df340f7613e",
+        "version" : "8.1.0"
       }
     },
     {
@@ -41,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/gtm-session-fetcher.git",
       "state" : {
-        "revision" : "0382ca27f22fb3494cf657d8dc356dc282cd1193",
-        "version" : "3.4.1"
+        "revision" : "a2ab612cb980066ee56d90d60d8462992c07f24b",
+        "version" : "3.5.0"
       }
     },
     {
@@ -50,8 +68,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GTMAppAuth.git",
       "state" : {
-        "revision" : "5d7d66f647400952b1758b230e019b07c0b4b22a",
-        "version" : "4.1.1"
+        "revision" : "56e0ccf09a6dd29dc7e68bdf729598240ca8aa16",
+        "version" : "5.0.0"
+      }
+    },
+    {
+      "identity" : "keychainaccess",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kishikawakatsumi/KeychainAccess",
+      "state" : {
+        "revision" : "84e546727d66f1adc5439debad16270d0fdd04e7",
+        "version" : "4.2.2"
       }
     },
     {
@@ -59,8 +86,35 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/poviolabs/PovioKit",
       "state" : {
-        "revision" : "96fa97cffa12ff644f10008133da062bec463ff8",
-        "version" : "4.0.0"
+        "revision" : "c9c4a41a7e63a96025b111171fff47783a994b9b",
+        "version" : "5.2.0"
+      }
+    },
+    {
+      "identity" : "poviokitauthfacebook",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/povio/PovioKitAuthFacebook",
+      "state" : {
+        "revision" : "d11897af6507eb299ccf19f789ee47202a107a3f",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "poviokitauthgoogle",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/povio/PovioKitAuthGoogle",
+      "state" : {
+        "revision" : "b9f41acc4cccc056f860d0401b08dee6ae511ebc",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "promises",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/google/promises.git",
+      "state" : {
+        "revision" : "540318ecedd63d883069ae7f1ed811a2df00b6ac",
+        "version" : "2.4.0"
       }
     }
   ],

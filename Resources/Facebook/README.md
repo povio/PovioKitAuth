@@ -2,12 +2,15 @@
 
 Auth provider for social login with Facebook.
 
-## Setup
-Please read [official documentation](https://developers.facebook.com/docs/facebook-login/ios) from Facebook for all the details around the setup and integration.
+## Installation
+
+Install it from a [separate repo](https://github.com/povio/PovioKitAuthFacebook).
 
 ## Usage
 
 ```swift
+import PovioKitAuthFacebook
+
 // initialization
 let authenticator = FacebookAuthenticator()
 

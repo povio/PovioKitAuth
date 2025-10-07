@@ -36,8 +36,6 @@
 - Select "Add Package" button and check one or all given products from the list:
   - *PovioKitAuthCore* (core library)
   - *PovioKitAuthApple* (Apple auth components)
-  - *PovioKitAuthGoogle* (Google auth components)
-  - *PovioKitAuthFacebook* (Facebook auth components)
   - *PovioKitAuthLinkedIn* (LinkedIn auth components)
 - Select "Add Package" again and you are done.
 
@@ -50,7 +48,11 @@ You can leverage use of `SocialAuthenticationManager` as to simplify managing mu
 
 ### Use SocialAuthenticationManager directly as is
 ```swift
-let manager = SocialAuthenticationManager(authenticators: [AppleAuthenticator(), FacebookAuthenticator()])
+import PovioKitAuthCore
+import PovioKitAuthApple
+import PovioKitAuthFacebook
+
+let manager = SocialAuthenticationManager(authenticators: [AppleAuthenticator(), LinkedInAuthenticator()])
 
 // signIn user with Apple
 let appleAuthenticator = manager.authenticator(for: AppleAuthenticator.self)
