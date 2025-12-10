@@ -10,11 +10,6 @@ import AuthenticationServices
 import Foundation
 
 public extension AppleAuthenticator {
-  enum Nonce {
-    case random(length: UInt)
-    case custom(value: String)
-  }
-  
   struct Response {
     public let userId: String
     public let token: String
