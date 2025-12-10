@@ -70,14 +70,6 @@ extension AppleAuthenticator: Authenticator {
   ) -> Bool {
     false
   }
-  
-  /// Generate random nonce string
-  public func generateNonceString(length: UInt = 32) -> String {
-    let charset: [Character] = Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-    let result = (0..<length).compactMap { _ in charset.randomElement() }
-    guard result.count == length else { fatalError("Unable to generate nonce!") }
-    return String(result)
-  }
 }
 
 // MARK: - ASAuthorizationControllerDelegate
@@ -162,20 +154,9 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
 private extension AppleAuthenticator {
   func appleSignIn(on presentingViewController: UIViewController, with nonce: Nonce?) async throws -> Response {
     let request = provider.createRequest()
-    request.requestedScopes = [.fullName, .email]
-    
-    switch nonce {
-    case .random(let length):
-      guard length > 0 else {
-        throw Error.invalidNonceLength
-      }
-      request.nonce = generateNonceString(length: length).sha256
-    case .custom(let value):
-      request.nonce = value.sha256
-    case .none:
-      break
-    }
-    
+		request.requestedScopes = [.fullName, .email]
+		request.nonce = nonce?.value
+		
     return try await withCheckedThrowingContinuation { continuation in
       let controller = ASAuthorizationController(authorizationRequests: [request])
       controller.delegate = self

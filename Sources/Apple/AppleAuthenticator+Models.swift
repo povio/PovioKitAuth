@@ -33,7 +33,6 @@ public extension AppleAuthenticator {
   enum Error: Swift.Error {
     case system(_ error: Swift.Error)
     case cancelled
-    case invalidNonceLength
     case invalidIdentityToken
     case unhandledAuthorization
     case credentialsRevoked
