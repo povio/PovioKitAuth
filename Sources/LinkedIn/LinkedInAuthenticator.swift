@@ -66,6 +66,6 @@ extension LinkedInAuthenticator: Authenticator {
   ///
   /// Call this from UIApplicationDelegate’s `application:openURL:options:` method.
   public func canOpenUrl(_ url: URL, application: UIApplication, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-    true
+    false
   }
 }

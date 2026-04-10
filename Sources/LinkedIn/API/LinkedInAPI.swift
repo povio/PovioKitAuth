@@ -16,26 +16,22 @@ public struct LinkedInAPI {
 
 public extension LinkedInAPI {
   func login(with request: LinkedInAuthRequest) async throws -> LinkedInAuthResponse {
-    let encoder = JSONEncoder()
-    encoder.keyEncodingStrategy = .convertToSnakeCase
-    let jsonData = try encoder.encode(request)
-    let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
-    guard let jsonDict = jsonObject as? [String: Any] else {
+    guard let url = URL(string: Endpoints.accessToken.url) else {
+      throw Error.invalidUrl
+    }
+
+    var components = URLComponents()
+    components.queryItems = [
+      .init(name: "grant_type", value: request.grantType),
+      .init(name: "code", value: request.code),
+      .init(name: "client_id", value: request.clientId),
+      .init(name: "client_secret", value: request.clientSecret),
+      .init(name: "redirect_uri", value: request.redirectUri)
+    ]
+    guard let bodyString = components.percentEncodedQuery else {
       throw Error.invalidRequest
     }
-    
-    guard var components = URLComponents(string: Endpoints.accessToken.url) else {
-      throw Error.invalidUrl
-    }
-    
-    let queryItems: [URLQueryItem] = jsonDict.compactMap { key, value in
-      (value as? String).map { .init(name: key, value: $0) }
-    }
-    
-    components.queryItems = queryItems
-    guard let url = components.url else {
-      throw Error.invalidUrl
-    }
+    let bodyData = Data(bodyString.utf8)
     
     let decoder = JSONDecoder()
     decoder.keyDecodingStrategy = .convertFromSnakeCase
@@ -48,7 +44,8 @@ public extension LinkedInAPI {
     let response = try await client.request(
       method: "POST",
       url: url,
-      headers: ["Content-Type": "application/x-www-form-urlencoded"],
+      headers: ["Content-Type": "application/x-www-form-urlencoded; charset=utf-8"],
+      body: bodyData,
       decodeTo: LinkedInAuthResponse.self,
       with: decoder
     )

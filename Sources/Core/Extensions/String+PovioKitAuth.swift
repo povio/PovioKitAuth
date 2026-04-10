@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  String+PovioKitAuth.swift
 //  PovioKitAuth
 //
 //  Created by Borut Tomazin on 10.12.2025.
