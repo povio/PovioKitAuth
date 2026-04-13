@@ -12,10 +12,10 @@ import SwiftUI
 @available(iOS 15.0, *)
 public struct LinkedInWebView: UIViewRepresentable {
   @Environment(\.dismiss) var dismiss
-  // create a random string based on the time interval (it will be in the number form) - Needed for state.
+  // Keep an unpredictable value for OAuth state validation.
   public typealias SuccessHandler = ((code: String, state: String)) -> Void
   public typealias ErrorHandler = () -> Void
-  private let requestState: String = "\(Int(Date().timeIntervalSince1970))"
+  private let requestState: String = UUID().uuidString.replacingOccurrences(of: "-", with: "")
   private let webView: WKWebView
   private let configuration: LinkedInAuthenticator.Configuration
   public let onSuccess: SuccessHandler?
@@ -37,6 +37,7 @@ public struct LinkedInWebView: UIViewRepresentable {
   }
   
   public func updateUIView(_ uiView: UIViewType, context: Context) {
+    guard !context.coordinator.didLoadInitialRequest else { return }
     guard let webView = uiView as? WKWebView else { return }
     guard let authURL = configuration.authorizationUrl(state: requestState) else {
       dismiss()
@@ -44,6 +45,7 @@ public struct LinkedInWebView: UIViewRepresentable {
     }
     webView.navigationDelegate = context.coordinator
     webView.load(.init(url: authURL))
+    context.coordinator.didLoadInitialRequest = true
   }
   
   public func makeCoordinator() -> Coordinator {
@@ -56,6 +58,7 @@ public extension LinkedInWebView {
   class Coordinator: NSObject, WKNavigationDelegate {
     private let parent: LinkedInWebView
     private let requestState: String
+    fileprivate var didLoadInitialRequest: Bool = false
     
     public init(_ parent: LinkedInWebView, requestState: String) {
       self.parent = parent
@@ -74,7 +77,7 @@ public extension LinkedInWebView {
       }
       
       // extract the authorization code from the redirect url
-      guard let url = webView.url,
+      guard let url = navigationAction.request.url,
             url.host == parent.configuration.redirectUrl.host,
             let components = URLComponents(string: url.absoluteString),
             let state = components.queryItems?.first(where: { $0.name == "state" })?.value,

@@ -1,5 +1,5 @@
 //
-//  GoogleAuthenticator+Models.swift
+//  LinkedInAuthenticator+Models.swift
 //  PovioKitAuth
 //
 //  Created by Borut Tomazin on 30/01/2023.
