@@ -3,7 +3,7 @@
 //  PovioKitAuth
 //
 //  Created by Borut Tomazin on 28/10/2022.
-//  Copyright © 2025 Povio Inc. All rights reserved.
+//  Copyright © 2026 Povio Inc. All rights reserved.
 //
 
 import AuthenticationServices
@@ -33,6 +33,7 @@ public extension AppleAuthenticator {
   enum Error: Swift.Error {
     case system(_ error: Swift.Error)
     case cancelled
+    case signInInProgress
     case invalidIdentityToken
     case unhandledAuthorization
     case credentialsRevoked

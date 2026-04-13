@@ -3,7 +3,7 @@
 //  PovioKitAuth
 //
 //  Created by Borut Tomazin on 24/10/2022.
-//  Copyright © 2025 Povio Inc. All rights reserved.
+//  Copyright © 2026 Povio Inc. All rights reserved.
 //
 
 import AuthenticationServices
@@ -52,7 +52,7 @@ extension AppleAuthenticator: Authenticator {
   public func signOut() {
     storage.removeObject(forKey: storageUserIdKey)
     storage.setValue(false, forKey: storageAuthenticatedKey)
-    continuation = nil
+    resolveSignIn(with: .failure(Error.cancelled))
   }
   
   /// Returns the current authentication state.
@@ -131,7 +131,7 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
         expiresAt: expiresAt
       )
       
-      continuation?.resume(with: .success(response))
+      resolveSignIn(with: .success(response))
     case _:
       rejectSignIn(with: .unhandledAuthorization)
     }
@@ -153,10 +153,12 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
 // MARK: - Private Methods
 private extension AppleAuthenticator {
   func appleSignIn(on presentingViewController: UIViewController, with nonce: Nonce?) async throws -> Response {
+    guard continuation == nil else { throw Error.signInInProgress }
+
     let request = provider.createRequest()
-		request.requestedScopes = [.fullName, .email]
-		request.nonce = nonce?.value
-		
+    request.requestedScopes = [.fullName, .email]
+    request.nonce = nonce?.value
+
     return try await withCheckedThrowingContinuation { continuation in
       let controller = ASAuthorizationController(authorizationRequests: [request])
       controller.delegate = self
@@ -177,8 +179,13 @@ private extension AppleAuthenticator {
   
   func rejectSignIn(with error: Error) {
     storage.setValue(false, forKey: storageAuthenticatedKey)
-    continuation?.resume(throwing: error)
-    continuation = nil
+    resolveSignIn(with: .failure(error))
+  }
+
+  func resolveSignIn(with result: Result<Response, Swift.Error>) {
+    guard let continuation else { return }
+    continuation.resume(with: result)
+    self.continuation = nil
   }
 }
 

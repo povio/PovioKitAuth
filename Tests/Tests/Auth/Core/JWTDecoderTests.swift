@@ -3,7 +3,7 @@
 //  PovioKitAuth_Tests
 //
 //  Created by Borut Tomazin on 12/1/2023.
-//  Copyright © 2025 Povio Inc. All rights reserved.
+//  Copyright © 2026 Povio Inc. All rights reserved.
 //
 
 import XCTest

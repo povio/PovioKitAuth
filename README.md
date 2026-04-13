@@ -27,12 +27,14 @@
 | [Core](Resources/Core) | [Apple](Resources/Apple) | [Google](Resources/Google) | [Facebook](Resources/Facebook) | [LinkedIn](Resources/LinkedIn) |
 | :-: | :-: | :-: | :-: | :-: |
 
+Google and Facebook providers were extracted into separate packages. See [Migration](MIGRATING.md).
+
 ## Installation
 
 ### Swift Package Manager
 - In Xcode, click `File` -> `Add Packages...`  
 - Insert `https://github.com/poviolabs/PovioKitAuth` in the Search field.
-- Select a desired `Dependency Rule`. Usually "Up to Next Major Version" with "2.1.0".
+- Select a desired `Dependency Rule` (usually "Up to Next Major Version").
 - Select "Add Package" button and check one or all given products from the list:
   - *PovioKitAuthCore* (core library)
   - *PovioKitAuthApple* (Apple auth components)
@@ -50,7 +52,7 @@ You can leverage use of `SocialAuthenticationManager` as to simplify managing mu
 ```swift
 import PovioKitAuthCore
 import PovioKitAuthApple
-import PovioKitAuthFacebook
+import PovioKitAuthLinkedIn
 
 let manager = SocialAuthenticationManager(authenticators: [AppleAuthenticator(), LinkedInAuthenticator()])
 
@@ -59,13 +61,13 @@ let appleAuthenticator = manager.authenticator(for: AppleAuthenticator.self)
 let result = try await appleAuthenticator?
   .signIn(from: <view-controller-instance>, with: .random(length: 32))
   
-// signIn user with Facebook
-let facebookAuthenticator = manager.authenticator(for: FacebookAuthenticator.self)
-let result = try await facebookAuthenticator?
-  .signIn(from: <view-controller-instance>, with: [.email])
+// signIn user with LinkedIn
+let linkedInAuthenticator = manager.authenticator(for: LinkedInAuthenticator.self)
+let result = try await linkedInAuthenticator?
+  .signIn(authCode: <authorization-code>, configuration: <configuration>)
   
 // return currently authenticated authenticator
-let authenticated: Authenticator? = manager.authenticator
+let authenticated: Authenticator? = manager.currentAuthenticator
 
 // sign out currently signedIn authenticator
 manager.signOut()
@@ -85,13 +87,12 @@ final class WrapperManager {
   init() {
     socialAuthManager = SocialAuthenticationManager(authenticators: [
       AppleAuthenticator(),
-      GoogleAuthenticator(),
-      SnapchatAuthenticator()
+      LinkedInAuthenticator()
     ])
   }
 }
 
-extension AuthManager: Authenticator {
+extension WrapperManager: Authenticator {
   var isAuthenticated: Authenticated {
     socialAuthManager.isAuthenticated
   }

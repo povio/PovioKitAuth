@@ -1,9 +1,9 @@
 //
-//  GoogleAuthenticator+Models.swift
+//  LinkedInAuthenticator+Models.swift
 //  PovioKitAuth
 //
 //  Created by Borut Tomazin on 30/01/2023.
-//  Copyright © 2025 Povio Inc. All rights reserved.
+//  Copyright © 2026 Povio Inc. All rights reserved.
 //
 
 import Foundation

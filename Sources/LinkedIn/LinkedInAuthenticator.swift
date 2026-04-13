@@ -3,7 +3,7 @@
 //  PovioKitAuth
 //
 //  Created by Borut Tomazin on 04/09/2023.
-//  Copyright © 2025 Povio Inc. All rights reserved.
+//  Copyright © 2026 Povio Inc. All rights reserved.
 //
 
 import UIKit
@@ -66,6 +66,6 @@ extension LinkedInAuthenticator: Authenticator {
   ///
   /// Call this from UIApplicationDelegate’s `application:openURL:options:` method.
   public func canOpenUrl(_ url: URL, application: UIApplication, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-    true
+    false
   }
 }
