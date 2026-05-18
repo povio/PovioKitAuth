@@ -8,11 +8,25 @@
 
 import Foundation
 
-public struct LinkedInAPI {
-  private let client: HttpClient = .init()
-  
-  public init() {}
+protocol LinkedInAPIProtocol {
+  func login(with request: LinkedInAPI.LinkedInAuthRequest) async throws -> LinkedInAPI.LinkedInAuthResponse
+  func loadProfile(with request: LinkedInAPI.LinkedInProfileRequest) async throws -> LinkedInAPI.LinkedInProfileResponse
+  func loadEmail(with request: LinkedInAPI.LinkedInProfileRequest) async throws -> LinkedInAPI.LinkedInEmailValueResponse
 }
+
+public struct LinkedInAPI {
+  private let client: HttpClient
+  
+  public init() {
+    self.client = .init()
+  }
+  
+  init(client: HttpClient) {
+    self.client = client
+  }
+}
+
+extension LinkedInAPI: LinkedInAPIProtocol {}
 
 public extension LinkedInAPI {
   func login(with request: LinkedInAuthRequest) async throws -> LinkedInAuthResponse {
