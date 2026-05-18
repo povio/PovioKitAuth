@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1B2C3D42F00000100AAA001 /* KeychainServiceHostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D42F00000100AAA004 /* KeychainServiceHostTests.swift */; };
+		A1B2C3D42F00000100AAA002 /* PovioKitAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = A1B2C3D42F00000100AAA00F /* PovioKitAuthCore */; };
 	990EB5A12BEDF02B00EFA308 /* DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990EB5A02BEDF02B00EFA308 /* DemoApp.swift */; };
 	990EB5A32BEDF02B00EFA308 /* SignInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990EB5A22BEDF02B00EFA308 /* SignInView.swift */; };
 	990EB5A52BEDF02D00EFA308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 990EB5A42BEDF02D00EFA308 /* Assets.xcassets */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A1B2C3D42F00000100AAA003 /* PovioKitAuthDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PovioKitAuthDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1B2C3D42F00000100AAA004 /* KeychainServiceHostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainServiceHostTests.swift; sourceTree = "<group>"; };
 		990EB59D2BEDF02B00EFA308 /* PovioKitAuthDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PovioKitAuthDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		990EB5A02BEDF02B00EFA308 /* DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoApp.swift; sourceTree = "<group>"; };
 		990EB5A22BEDF02B00EFA308 /* SignInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInView.swift; sourceTree = "<group>"; };
@@ -31,7 +35,25 @@
 		9964BD032BEDF2690065CBC2 /* PovioKitAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = PovioKitAuth; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXContainerItemProxy section */
+		A1B2C3D42F00000100AAA005 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 990EB5952BEDF02B00EFA308 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 990EB59C2BEDF02B00EFA308;
+			remoteInfo = PovioKitAuthDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		A1B2C3D42F00000100AAA006 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D42F00000100AAA002 /* PovioKitAuthCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		990EB59A2BEDF02B00EFA308 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,6 +73,7 @@
 		990EB5942BEDF02B00EFA308 = {
 			isa = PBXGroup;
 			children = (
+				A1B2C3D42F00000100AAA007 /* PovioKitAuthDemoTests */,
 				9964BD002BEDF21B0065CBC2 /* Packages */,
 				990EB59F2BEDF02B00EFA308 /* PovioKitAuthDemo */,
 				990EB59E2BEDF02B00EFA308 /* Products */,
@@ -61,9 +84,18 @@
 		990EB59E2BEDF02B00EFA308 /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				A1B2C3D42F00000100AAA003 /* PovioKitAuthDemoTests.xctest */,
 				990EB59D2BEDF02B00EFA308 /* PovioKitAuthDemo.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A1B2C3D42F00000100AAA007 /* PovioKitAuthDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				A1B2C3D42F00000100AAA004 /* KeychainServiceHostTests.swift */,
+			);
+			path = PovioKitAuthDemoTests;
 			sourceTree = "<group>";
 		};
 		990EB59F2BEDF02B00EFA308 /* PovioKitAuthDemo */ = {
@@ -105,6 +137,27 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A1B2C3D42F00000100AAA008 /* PovioKitAuthDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A1B2C3D42F00000100AAA00E /* Build configuration list for PBXNativeTarget "PovioKitAuthDemoTests" */;
+			buildPhases = (
+				A1B2C3D42F00000100AAA00A /* Sources */,
+				A1B2C3D42F00000100AAA006 /* Frameworks */,
+				A1B2C3D42F00000100AAA009 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A1B2C3D42F00000100AAA00B /* PBXTargetDependency */,
+			);
+			name = PovioKitAuthDemoTests;
+			packageProductDependencies = (
+				A1B2C3D42F00000100AAA00F /* PovioKitAuthCore */,
+			);
+			productName = PovioKitAuthDemoTests;
+			productReference = A1B2C3D42F00000100AAA003 /* PovioKitAuthDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		990EB59C2BEDF02B00EFA308 /* PovioKitAuthDemo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 990EB5AC2BEDF02D00EFA308 /* Build configuration list for PBXNativeTarget "PovioKitAuthDemo" */;
@@ -141,6 +194,10 @@
 				LastUpgradeCheck = 2600;
 				ORGANIZATIONNAME = "Povio Inc.";
 				TargetAttributes = {
+					A1B2C3D42F00000100AAA008 = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 990EB59C2BEDF02B00EFA308;
+					};
 					990EB59C2BEDF02B00EFA308 = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -156,6 +213,7 @@
 			);
 			mainGroup = 990EB5942BEDF02B00EFA308;
 			packageReferences = (
+				A1B2C3D42F00000100AAA010 /* XCLocalSwiftPackageReference "../.." */,
 				999C56E92C046BF50093AD37 /* XCRemoteSwiftPackageReference "PovioKit" */,
 				99D522BB2E94EBA8003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthGoogle" */,
 				99D522BE2E94EBB4003A94FA /* XCRemoteSwiftPackageReference "PovioKitAuthFacebook" */,
@@ -164,12 +222,20 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				A1B2C3D42F00000100AAA008 /* PovioKitAuthDemoTests */,
 				990EB59C2BEDF02B00EFA308 /* PovioKitAuthDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+	A1B2C3D42F00000100AAA009 /* Resources */ = {
+		isa = PBXResourcesBuildPhase;
+		buildActionMask = 2147483647;
+		files = (
+		);
+		runOnlyForDeploymentPostprocessing = 0;
+	};
 	990EB59B2BEDF02B00EFA308 /* Resources */ = {
 		isa = PBXResourcesBuildPhase;
 		buildActionMask = 2147483647;
@@ -182,6 +248,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A1B2C3D42F00000100AAA00A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B2C3D42F00000100AAA001 /* KeychainServiceHostTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		990EB5992BEDF02B00EFA308 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -194,7 +268,63 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A1B2C3D42F00000100AAA00B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 990EB59C2BEDF02B00EFA308 /* PovioKitAuthDemo */;
+			targetProxy = A1B2C3D42F00000100AAA005 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		A1B2C3D42F00000100AAA00C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7G58AP3AJX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.povio.poviokitauth.demo.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PovioKitAuthDemo.app/PovioKitAuthDemo";
+			};
+			name = Debug;
+		};
+		A1B2C3D42F00000100AAA00D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7G58AP3AJX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.povio.poviokitauth.demo.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PovioKitAuthDemo.app/PovioKitAuthDemo";
+			};
+			name = Release;
+		};
 		990EB5AA2BEDF02D00EFA308 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -400,6 +530,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A1B2C3D42F00000100AAA00E /* Build configuration list for PBXNativeTarget "PovioKitAuthDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A1B2C3D42F00000100AAA00C /* Debug */,
+				A1B2C3D42F00000100AAA00D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		990EB5982BEDF02B00EFA308 /* Build configuration list for PBXProject "PovioKitAuthDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -419,6 +558,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		A1B2C3D42F00000100AAA010 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
+		};
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCRemoteSwiftPackageReference section */
 		999C56E92C046BF50093AD37 /* XCRemoteSwiftPackageReference "PovioKit" */ = {
@@ -448,16 +594,24 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		A1B2C3D42F00000100AAA00F /* PovioKitAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D42F00000100AAA010 /* XCLocalSwiftPackageReference "../.." */;
+			productName = PovioKitAuthCore;
+		};
 		9964BD062BEDF2810065CBC2 /* PovioKitAuthApple */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D42F00000100AAA010 /* XCLocalSwiftPackageReference "../.." */;
 			productName = PovioKitAuthApple;
 		};
 		9964BD082BEDF2810065CBC2 /* PovioKitAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D42F00000100AAA010 /* XCLocalSwiftPackageReference "../.." */;
 			productName = PovioKitAuthCore;
 		};
 		9964BD0E2BEDF2810065CBC2 /* PovioKitAuthLinkedIn */ = {
 			isa = XCSwiftPackageProductDependency;
+			package = A1B2C3D42F00000100AAA010 /* XCLocalSwiftPackageReference "../.." */;
 			productName = PovioKitAuthLinkedIn;
 		};
 		999C56EA2C046BF50093AD37 /* PovioKitCore */ = {
