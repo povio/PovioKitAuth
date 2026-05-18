@@ -1,5 +1,8 @@
 ## Migration Guides
 
+### Migration from versions < 3.1.0
+* [Core] `JWTDecoder.Error`: `.invalidBase64` / `.invalidJson` now take a `component` (`"header"` or `"payload"`). Added `claim`, `headerClaim`, `double`, `int`. Improved `bool` / `date` parsing.
+
 ### Migration from versions < 3.0.0
 * [Facebook] In order to continue using FacebookAuthenticator, you'll need to install it as a [separate dependency](https://github.com/povio/PovioKitAuthFacebook). 
 * [Google] In order to continue using GoogleAuthenticator, you'll need to install it as a [separate dependency](https://github.com/povio/PovioKitAuthGoogle/).
