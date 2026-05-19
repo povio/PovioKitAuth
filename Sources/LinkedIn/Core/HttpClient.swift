@@ -14,6 +14,12 @@ enum HttpClientError: Swift.Error {
 }
 
 struct HttpClient {
+  private let session: URLSession
+  
+  init(session: URLSession = .shared) {
+    self.session = session
+  }
+  
   func request<D: Decodable>(
     method: String,
     url: URL,
@@ -27,7 +33,7 @@ struct HttpClient {
     urlRequest.allHTTPHeaderFields = headers
     urlRequest.httpBody = body
     
-    let (data, response) = try await URLSession.shared.data(for: urlRequest)
+    let (data, response) = try await session.data(for: urlRequest)
     
     guard let httpResponse = response as? HTTPURLResponse else {
       throw HttpClientError.invalidResponse

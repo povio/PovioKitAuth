@@ -12,11 +12,16 @@ import PovioKitAuthCore
 public final class LinkedInAuthenticator {
   private let storage: UserDefaults
   private let storageIsAuthenticatedKey = "signIn.isAuthenticated"
-  private let linkedInAPI: LinkedInAPI
+  private let linkedInAPI: LinkedInAPIProtocol
   
   public init(storage: UserDefaults? = nil,
               linkedInAPI: LinkedInAPI = .init()) {
     self.storage = storage ?? .init(suiteName: "povioKit.auth.linkedIn") ?? .standard
+    self.linkedInAPI = linkedInAPI
+  }
+  
+  init(storage: UserDefaults, linkedInAPI: LinkedInAPIProtocol) {
+    self.storage = storage
     self.linkedInAPI = linkedInAPI
   }
 }

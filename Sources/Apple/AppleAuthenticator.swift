@@ -11,17 +11,48 @@ import Foundation
 import PovioKitAuthCore
 
 public final class AppleAuthenticator: NSObject {
+  typealias AuthorizationRequestFactory = () -> ASAuthorizationAppleIDRequest
+  typealias AuthorizationPerformer = ([ASAuthorizationRequest], UIViewController, ASAuthorizationControllerDelegate) -> Void
+
   private let storage: UserDefaults
   private let storageUserIdKey = "signIn.userId"
   private let storageAuthenticatedKey = "authenticated"
-  private let provider: ASAuthorizationAppleIDProvider
-  private let keychainService: KeychainService = .init(name: "povioKit.auth")
-  private let keychainServiceDataKey: String = "user.data"
+  private let makeAuthorizationRequest: AuthorizationRequestFactory
+  private let performAuthorization: AuthorizationPerformer
+  private let keychainService: KeychainService
+  private let keychainServiceDataKey: String
   private var continuation: CheckedContinuation<Response, Swift.Error>?
   
   public init(storage: UserDefaults? = nil) {
-    self.provider = .init()
     self.storage = storage ?? .init(suiteName: "povioKit.auth.apple") ?? .standard
+    let provider = ASAuthorizationAppleIDProvider()
+    self.makeAuthorizationRequest = {
+      provider.createRequest()
+    }
+    self.performAuthorization = { requests, presentingViewController, delegate in
+      let controller = ASAuthorizationController(authorizationRequests: requests)
+      controller.delegate = delegate
+      controller.presentationContextProvider = presentingViewController
+      controller.performRequests()
+    }
+    self.keychainService = KeychainService(name: "povioKit.auth")
+    self.keychainServiceDataKey = "user.data"
+    super.init()
+    setupCredentialsRevokeListener()
+  }
+  
+  init(
+    storage: UserDefaults,
+    makeAuthorizationRequest: @escaping AuthorizationRequestFactory,
+    performAuthorization: @escaping AuthorizationPerformer,
+    keychainService: KeychainService = KeychainService(name: "povioKit.auth"),
+    keychainServiceDataKey: String = "user.data"
+  ) {
+    self.storage = storage
+    self.makeAuthorizationRequest = makeAuthorizationRequest
+    self.performAuthorization = performAuthorization
+    self.keychainService = keychainService
+    self.keychainServiceDataKey = keychainServiceDataKey
     super.init()
     setupCredentialsRevokeListener()
   }
@@ -80,58 +111,20 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
   ) {
     switch authorization.credential {
     case let credential as ASAuthorizationAppleIDCredential:
-      guard let authCodeData = credential.authorizationCode,
-            let authCode = String(data: authCodeData, encoding: .utf8),
-            let identityToken = credential.identityToken,
-            let identityTokenString = String(data: identityToken, encoding: .utf8) else {
+      do {
+        let response = try processAppleIDCredential(
+          user: credential.user,
+          authCodeData: credential.authorizationCode,
+          identityTokenData: credential.identityToken,
+          emailFromCredential: credential.email,
+          fullName: credential.fullName
+        )
+        resolveSignIn(with: .success(response))
+      } catch let error as Error {
+        rejectSignIn(with: error)
+      } catch {
         rejectSignIn(with: .invalidIdentityToken)
-        return
       }
-      
-      // store userId and authentication flag
-      storage.set(credential.user, forKey: storageUserIdKey)
-      storage.setValue(true, forKey: storageAuthenticatedKey)
-      
-      // parse email and related metadata
-      let jwt = try? JWTDecoder(token: identityTokenString)
-      var email: Email? = (credential.email ?? jwt?.string(for: "email")).map {
-        let isEmailPrivate = jwt?.bool(for: "is_private_email") ?? false
-        let isEmailVerified = jwt?.bool(for: "email_verified") ?? false
-        return .init(address: $0, isPrivate: isEmailPrivate, isVerified: isEmailVerified)
-      }
-      
-      // load email from keychain on subsequent logins
-      let existingUserData: UserData? = keychainService.read(UserData.self, for: keychainServiceDataKey)
-      if email == nil, let existingUserData {
-        email = existingUserData.email
-      }
-      
-      // do not continue if `email` is missing
-      guard let email, !email.address.isEmpty else {
-        rejectSignIn(with: .missingEmail)
-        return
-      }
-      
-      // save user data for the future logins
-      let updatedUserData: UserData = .init(name: credential.fullName, email: email)
-      try? keychainService.save(updatedUserData, for: keychainServiceDataKey)
-      
-      // do not continue if `expiresAt` is missing
-      guard let expiresAt = jwt?.expiresAt else {
-        rejectSignIn(with: .missingExpiration)
-        return
-      }
-      
-      let response = Response(
-        userId: credential.user,
-        token: identityTokenString,
-        authCode: authCode,
-        nameComponents: updatedUserData.name,
-        email: updatedUserData.email,
-        expiresAt: expiresAt
-      )
-      
-      resolveSignIn(with: .success(response))
     case _:
       rejectSignIn(with: .unhandledAuthorization)
     }
@@ -150,21 +143,71 @@ extension AppleAuthenticator: ASAuthorizationControllerDelegate {
   }
 }
 
+// MARK: - Internal Methods
+extension AppleAuthenticator {
+  func processAppleIDCredential(
+    user: String,
+    authCodeData: Data?,
+    identityTokenData: Data?,
+    emailFromCredential: String?,
+    fullName: PersonNameComponents?
+  ) throws -> Response {
+    guard let authCodeData,
+          let authCode = String(data: authCodeData, encoding: .utf8),
+          let identityTokenData,
+          let identityTokenString = String(data: identityTokenData, encoding: .utf8) else {
+      throw Error.invalidIdentityToken
+    }
+
+    storage.set(user, forKey: storageUserIdKey)
+    storage.setValue(true, forKey: storageAuthenticatedKey)
+
+    let jwt = try? JWTDecoder(token: identityTokenString)
+    var email: Email? = (emailFromCredential ?? jwt?.string(for: "email")).map {
+      let isEmailPrivate = jwt?.bool(for: "is_private_email") ?? false
+      let isEmailVerified = jwt?.bool(for: "email_verified") ?? false
+      return .init(address: $0, isPrivate: isEmailPrivate, isVerified: isEmailVerified)
+    }
+
+    let existingUserData: UserData? = keychainService.read(UserData.self, for: keychainServiceDataKey)
+    if email == nil, let existingUserData {
+      email = existingUserData.email
+    }
+
+    guard let email, !email.address.isEmpty else {
+      throw Error.missingEmail
+    }
+
+    let updatedUserData = UserData(name: fullName, email: email)
+    try? keychainService.save(updatedUserData, for: keychainServiceDataKey)
+
+    guard let expiresAt = jwt?.expiresAt else {
+      throw Error.missingExpiration
+    }
+
+    return Response(
+      userId: user,
+      token: identityTokenString,
+      authCode: authCode,
+      nameComponents: updatedUserData.name,
+      email: updatedUserData.email,
+      expiresAt: expiresAt
+    )
+  }
+}
+
 // MARK: - Private Methods
 private extension AppleAuthenticator {
   func appleSignIn(on presentingViewController: UIViewController, with nonce: Nonce?) async throws -> Response {
     guard continuation == nil else { throw Error.signInInProgress }
 
-    let request = provider.createRequest()
+    let request = makeAuthorizationRequest()
     request.requestedScopes = [.fullName, .email]
     request.nonce = nonce?.value
 
     return try await withCheckedThrowingContinuation { continuation in
-      let controller = ASAuthorizationController(authorizationRequests: [request])
-      controller.delegate = self
-      controller.presentationContextProvider = presentingViewController
       self.continuation = continuation
-      controller.performRequests()
+      performAuthorization([request], presentingViewController, self)
     }
   }
   

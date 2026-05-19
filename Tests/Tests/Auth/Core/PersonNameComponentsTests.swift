@@ -33,4 +33,36 @@ final class PersonNameComponentsTests: XCTestCase {
     let components = PersonNameComponents()
     XCTAssertNil(components.name)
   }
+
+  func test_init_setsAllProvidedFields() {
+    let phonetic = PersonNameComponents(middleName: nil, givenName: "Eh-duh", familyName: "Luhv-lace")
+    let components = PersonNameComponents(
+      namePrefix: "Dr.",
+      middleName: "Byron",
+      givenName: "Ada",
+      familyName: "Lovelace",
+      nameSuffix: "III",
+      nickname: "Countess",
+      phoneticRepresentation: phonetic
+    )
+    let reference = PersonNameComponents(
+      namePrefix: "Dr.",
+      givenName: "Ada",
+      middleName: "Byron",
+      familyName: "Lovelace",
+      nameSuffix: "III",
+      nickname: "Countess",
+      phoneticRepresentation: phonetic
+    )
+
+    XCTAssertEqual(components.namePrefix, "Dr.")
+    XCTAssertEqual(components.middleName, "Byron")
+    XCTAssertEqual(components.givenName, "Ada")
+    XCTAssertEqual(components.familyName, "Lovelace")
+    XCTAssertEqual(components.nameSuffix, "III")
+    XCTAssertEqual(components.nickname, "Countess")
+    XCTAssertEqual(components.phoneticRepresentation?.givenName, "Eh-duh")
+    XCTAssertEqual(components.phoneticRepresentation?.familyName, "Luhv-lace")
+    XCTAssertEqual(reference.middleName, "Byron")
+  }
 }

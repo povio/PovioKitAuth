@@ -44,7 +44,9 @@ let package = Package(
     .testTarget(
       name: "Tests",
       dependencies: [
-        "PovioKitAuthCore"
+        "PovioKitAuthCore",
+        "PovioKitAuthApple",
+        "PovioKitAuthLinkedIn"
       ]
     ),
   ]
