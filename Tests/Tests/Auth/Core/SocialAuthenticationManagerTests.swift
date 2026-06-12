@@ -9,6 +9,7 @@ import XCTest
 import UIKit
 import PovioKitAuthCore
 
+@MainActor
 final class SocialAuthenticationManagerTests: XCTestCase {
   func test_isAuthenticated_whenAnyAuthenticatorIsAuthenticated_returnsTrue() {
     let first = MockAuthenticator(isAuthenticated: false, canOpenUrlResult: false)
