@@ -9,6 +9,7 @@
 import UIKit
 import PovioKitAuthCore
 
+@MainActor
 public final class LinkedInAuthenticator {
   private let storage: UserDefaults
   private let storageIsAuthenticatedKey = "signIn.isAuthenticated"

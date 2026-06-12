@@ -9,6 +9,7 @@ import XCTest
 import Foundation
 @testable import PovioKitAuthLinkedIn
 
+@MainActor
 final class LinkedInAuthenticatorTests: XCTestCase {
   func test_isAuthenticated_readsStoredBooleanFlag() {
     let storage = makeStorage()
@@ -187,7 +188,7 @@ private extension LinkedInAuthenticatorTests {
   }
 }
 
-private final class MockLinkedInAPI: LinkedInAPIProtocol {
+private final class MockLinkedInAPI: LinkedInAPIProtocol, @unchecked Sendable {
   var loginResult: Result<LinkedInAPI.LinkedInAuthResponse, Error>!
   var profileResult: Result<LinkedInAPI.LinkedInProfileResponse, Error>!
   var emailResult: Result<LinkedInAPI.LinkedInEmailValueResponse, Error>!

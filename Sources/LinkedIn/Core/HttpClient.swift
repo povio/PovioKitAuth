@@ -13,7 +13,7 @@ enum HttpClientError: Swift.Error {
   case unsuccessfulStatusCode(code: Int, responseBody: Data)
 }
 
-struct HttpClient {
+struct HttpClient: Sendable {
   private let session: URLSession
   
   init(session: URLSession = .shared) {

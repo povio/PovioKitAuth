@@ -16,6 +16,7 @@ import PovioKitAuthFacebook
 import PovioKitAuthLinkedIn
 import Observation
 
+@MainActor
 @Observable
 final class SignInViewModel {
   private let socialAuthManager: SocialAuthenticationManager

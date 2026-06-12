@@ -1,5 +1,11 @@
 ## Migration Guides
 
+### Migration from versions < 4.0.0
+* [All] The package now builds in Swift 6 language mode and requires a Swift 6 toolchain (Xcode 16+).
+* [All] Minimum deployment target raised to iOS 18.0 (was iOS 16.0).
+* [Core] The `Authenticator` protocol is now `@MainActor`-isolated, as are `SocialAuthenticationManager`, `AppleAuthenticator`, and `LinkedInAuthenticator`. Call their members (`signIn`, `signOut`, `isAuthenticated`, `canOpenUrl`, …) from the main actor. From a non-isolated context, wrap calls in `await MainActor.run { … }` or mark the calling type/method `@MainActor`.
+* [Apple] `AppleAuthenticator.Response` and `AppleAuthenticator.Email` now conform to `Sendable`.
+
 ### Migration from versions < 3.1.0
 * [Core] `JWTDecoder.Error`: `.invalidBase64` / `.invalidJson` now take a `component` (`"header"` or `"payload"`). Added `claim`, `headerClaim`, `double`, `int`. Improved `bool` / `date` parsing.
 

@@ -160,7 +160,7 @@ private extension LinkedInAPITests {
 }
 
 private final class URLProtocolMock: URLProtocol {
-  static var requestHandler: ((URLRequest) throws -> (HTTPURLResponse, Data))?
+  nonisolated(unsafe) static var requestHandler: (@Sendable (URLRequest) throws -> (HTTPURLResponse, Data))?
 
   override class func canInit(with request: URLRequest) -> Bool { true }
   override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }

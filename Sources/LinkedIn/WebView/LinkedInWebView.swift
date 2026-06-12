@@ -9,7 +9,6 @@
 import SwiftUI
 @preconcurrency import WebKit
 
-@available(iOS 15.0, *)
 public struct LinkedInWebView: UIViewRepresentable {
   @Environment(\.dismiss) var dismiss
   // Keep an unpredictable value for OAuth state validation.
@@ -53,7 +52,6 @@ public struct LinkedInWebView: UIViewRepresentable {
   }
 }
 
-@available(iOS 15.0, *)
 public extension LinkedInWebView {
   class Coordinator: NSObject, WKNavigationDelegate {
     private let parent: LinkedInWebView
@@ -67,7 +65,7 @@ public extension LinkedInWebView {
     
     public func webView(_ webView: WKWebView,
                         decidePolicyFor navigationAction: WKNavigationAction,
-                        decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+                        decisionHandler: @escaping @MainActor @Sendable (WKNavigationActionPolicy) -> Void) {
       // if authCancel endpoint was called, dismiss the view
       if let url = navigationAction.request.url,
          url.absoluteString.hasPrefix(parent.configuration.authCancel.absoluteString) {
