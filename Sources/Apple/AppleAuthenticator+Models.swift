@@ -10,7 +10,7 @@ import AuthenticationServices
 import Foundation
 
 public extension AppleAuthenticator {
-  struct Response {
+  struct Response: Sendable {
     public let userId: String
     public let token: String
     public let authCode: String
@@ -24,7 +24,7 @@ public extension AppleAuthenticator {
     }
   }
   
-  struct Email: Codable {
+  struct Email: Codable, Sendable {
     public let address: String
     public let isPrivate: Bool
     public let isVerified: Bool

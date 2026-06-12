@@ -12,6 +12,7 @@ import UIKit
 import PovioKitAuthCore
 @testable import PovioKitAuthApple
 
+@MainActor
 final class AppleAuthenticatorTests: XCTestCase {
   func test_isAuthenticated_whenStorageContainsUserIdAndFlag_returnsTrue() {
     let storage = makeStorage()

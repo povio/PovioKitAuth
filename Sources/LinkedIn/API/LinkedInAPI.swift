@@ -8,13 +8,13 @@
 
 import Foundation
 
-protocol LinkedInAPIProtocol {
+protocol LinkedInAPIProtocol: Sendable {
   func login(with request: LinkedInAPI.LinkedInAuthRequest) async throws -> LinkedInAPI.LinkedInAuthResponse
   func loadProfile(with request: LinkedInAPI.LinkedInProfileRequest) async throws -> LinkedInAPI.LinkedInProfileResponse
   func loadEmail(with request: LinkedInAPI.LinkedInProfileRequest) async throws -> LinkedInAPI.LinkedInEmailValueResponse
 }
 
-public struct LinkedInAPI {
+public struct LinkedInAPI: Sendable {
   private let client: HttpClient
   
   public init() {
