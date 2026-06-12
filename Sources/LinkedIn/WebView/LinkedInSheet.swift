@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 15.0, *)
 public struct LinkedInSheet: ViewModifier {
   public typealias SuccessHandler = LinkedInWebView.SuccessHandler // (Bool) -> Void
   public typealias ErrorHandler = LinkedInWebView.ErrorHandler // (Error) -> Void
@@ -28,7 +27,6 @@ public struct LinkedInSheet: ViewModifier {
   }
 }
 
-@available(iOS 15.0, *)
 public extension View {
   /// ViewModifier to present `LinkedInWebView` in sheet
   func linkedInSheet(with config: LinkedInAuthenticator.Configuration,

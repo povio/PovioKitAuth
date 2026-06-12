@@ -7,7 +7,7 @@
         <img src="https://img.shields.io/badge/SPM-Swift-lightgrey.svg" />
     </a>
     <a href="https://www.swift.org" alt="Swift">
-        <img src="https://img.shields.io/badge/Swift-5-orange.svg" />
+        <img src="https://img.shields.io/badge/Swift-6-orange.svg" />
     </a>
     <a href="./LICENSE" alt="License">
         <img src="https://img.shields.io/badge/Licence-MIT-red.svg" />

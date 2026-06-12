@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+@MainActor
 public final class SocialAuthenticationManager {
   private let authenticators: [Authenticator]
   

@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 public protocol Authenticator {
   typealias Authenticated = Bool
   

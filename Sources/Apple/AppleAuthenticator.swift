@@ -10,6 +10,7 @@ import AuthenticationServices
 import Foundation
 import PovioKitAuthCore
 
+@MainActor
 public final class AppleAuthenticator: NSObject {
   typealias AuthorizationRequestFactory = () -> ASAuthorizationAppleIDRequest
   typealias AuthorizationPerformer = ([ASAuthorizationRequest], UIViewController, ASAuthorizationControllerDelegate) -> Void
